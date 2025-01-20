@@ -5,9 +5,18 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
 import tw from 'twrnc';
 
+// status bar displays mobile time, batter etc
+// text is like p tag from html
+// view is like div from html
+// safe area view ensures content is visible
+// touchale opacity is like faded button
+//scroll view makes content scrollable used in our app for the card thing
+// useFonts is used to load fonts
 
+// this shows loading screen while fonts load, really unnecessary because fonts load quickly but i encountered delayed loading for the first time so juts a safety measure
 SplashScreen.preventAutoHideAsync();
 
+// using custom fonts i downloaded from google fonts
 export default function App() {
   const [fontsLoaded] = useFonts({
     'Montserrat-Bold': require('./assets/fonts/Montserrat-Bold.ttf'),
@@ -25,7 +34,7 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
-
+  // were using twnrc which is tailwindcss, we need to write tw `` and the style classes in backticks, not that there are some changes in tailwind for web and twrnc so check the docs
   return (
     <SafeAreaView style={tw`flex-1 bg-white`} onLayout={onLayoutRootView}>
       <ScrollView style={tw`flex-1`}>
