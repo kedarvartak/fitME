@@ -34,16 +34,13 @@ To get started with fitME, follow these steps:
 1. **Log Workouts:**
    - Select the exercise you want to log.
    - Enter the number of sets, reps, and weight used.
+   - Start the clock timer and get ready to pump the greatest set you have experienced 
    - Save your workout to track your progress.
 
 2. **View History:**
    - Navigate to the history tab to view your past workouts.
    - Analyze your progress over time.
 
-3. **Create Custom Workouts:**
-   - Go to the custom workouts section.
-   - Add exercises to your custom routine.
-   - Save and use your custom routines for future workouts.
 
 ## Contributing
 
@@ -72,9 +69,6 @@ We welcome contributions to improve fitME! To contribute, please follow these st
     - Click the "Compare & pull request" button.
     - Describe your changes and submit the pull request.
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
 ## Contact
 
