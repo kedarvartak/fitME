@@ -1,4 +1,4 @@
-# fitME
+# fitME - your personalised fitness tracker
 
 fitME is a React Native application designed to help you track your sets and reps in the gym. Whether you're a beginner or a seasoned athlete, fitME provides a simple and efficient way to log your workouts and monitor your progress.
 
