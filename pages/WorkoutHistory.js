@@ -45,7 +45,7 @@ const mockWorkoutHistory = [
 export default function WorkoutHistoryScreen({ navigation }) {
   const [expandedWorkout, setExpandedWorkout] = useState(null);
   
-  // Background animation
+
   const bgCircle1 = useSharedValue({ x: 0, y: 0 });
   const bgCircle2 = useSharedValue({ x: width, y: height });
 
@@ -63,7 +63,7 @@ export default function WorkoutHistoryScreen({ navigation }) {
     ],
   }));
 
-  // Format date to a more readable format
+  
   const formatDate = (dateString) => {
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('en-US', options);
