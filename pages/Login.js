@@ -4,9 +4,7 @@ import {
   TextInput, 
   TouchableOpacity, 
   SafeAreaView, 
-  KeyboardAvoidingView, 
-  Platform,
-  Dimensions 
+  Dimensions,
 } from 'react-native';
 import { useState, useCallback } from 'react';
 import tw from 'twrnc';
@@ -126,10 +124,7 @@ export default function LoginScreen({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      <KeyboardAvoidingView 
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={tw`flex-1`}
-      >
+      <View style={tw`flex-1`}>
         <View style={tw`flex-1 px-6 pt-24`}>
          
           <Animated.View 
@@ -218,33 +213,38 @@ export default function LoginScreen({ navigation }) {
             <Text style={[tw`text-blue-800/60`, { fontFamily: 'Montserrat-Regular' }]}>
               Don't have an account?{' '}
             </Text>
-            <TouchableOpacity activeOpacity={0.7}>
+            <TouchableOpacity 
+              activeOpacity={0.7}
+              onPress={() => navigation.navigate('Register')}
+            >
               <Text style={[tw`text-sky-500`, { fontFamily: 'Montserrat-SemiBold' }]}>
                 Sign Up
               </Text>
             </TouchableOpacity>
           </Animated.View>
-
-          
-          <Animated.View 
-            entering={FadeInUp.duration(1000).delay(600)}
-            style={tw`absolute bottom-12 left-6 right-6`}
-          >
-            <Text style={[
-              tw`text-blue-800/70 text-center text-lg leading-6 mb-2`, 
-              { fontFamily: 'Montserrat-Medium' }
-            ]}>
-              "{randomQuote.text}"
-            </Text>
-            <Text style={[
-              tw`text-sky-500 text-center`, 
-              { fontFamily: 'Montserrat-SemiBold' }
-            ]}>
-              {randomQuote.author}
-            </Text>
-          </Animated.View>
         </View>
-      </KeyboardAvoidingView>
+
+        <Animated.View 
+          entering={FadeInUp.duration(1000).delay(600)}
+          style={[
+            tw`absolute bottom-12 left-6 right-6 bg-white/80 p-6 rounded-3xl backdrop-blur-sm`,
+            { zIndex: 999 }
+          ]}
+        >
+          <Text style={[
+            tw`text-blue-800/70 text-center text-lg leading-6 mb-2`, 
+            { fontFamily: 'Montserrat-Medium' }
+          ]}>
+            "{randomQuote.text}"
+          </Text>
+          <Text style={[
+            tw`text-sky-500 text-center`, 
+            { fontFamily: 'Montserrat-SemiBold' }
+          ]}>
+            {randomQuote.author}
+          </Text>
+        </Animated.View>
+      </View>
     </SafeAreaView>
   );
 } 

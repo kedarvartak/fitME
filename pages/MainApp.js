@@ -168,15 +168,33 @@ export default function MainAppScreen({ navigation }) {
             </Text>
             <View style={tw`flex-row flex-wrap justify-between`}>
               {[
-                { icon: 'add-circle-outline', label: 'New Workout', color: 'rgb(14 165 233)' },
-                { icon: 'calendar-outline', label: 'Schedule', color: 'rgb(34 197 94)' },
-                { icon: 'stats-chart', label: 'Progress', color: 'rgb(168 85 247)' },
-                { icon: 'settings-outline', label: 'Settings', color: 'rgb(239 68 68)' }
+                { 
+                  icon: 'add-circle-outline', 
+                  label: 'New Workout', 
+                  color: 'rgb(14 165 233)',
+                  onPress: () => navigation.navigate('NewWorkout')
+                },
+                { 
+                  icon: 'calendar-outline', 
+                  label: 'Schedule', 
+                  color: 'rgb(34 197 94)' 
+                },
+                { 
+                  icon: 'stats-chart', 
+                  label: 'Progress', 
+                  color: 'rgb(168 85 247)' 
+                },
+                { 
+                  icon: 'settings-outline', 
+                  label: 'Settings', 
+                  color: 'rgb(239 68 68)' 
+                }
               ].map((action, index) => (
                 <AnimatedTouchable 
                   key={action.label}
                   entering={FadeInRight.duration(1000).delay(index * 100)}
                   style={tw`bg-white/90 p-4 rounded-2xl w-[48%] mb-4 border border-sky-100 shadow-sm`}
+                  onPress={action.onPress}
                 >
                   <View style={[tw`rounded-full w-12 h-12 items-center justify-center mb-2`, { backgroundColor: `${action.color}10` }]}>
                     <Ionicons name={action.icon} size={24} color={action.color} />

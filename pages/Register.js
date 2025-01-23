@@ -4,9 +4,8 @@ import {
   TextInput, 
   TouchableOpacity, 
   SafeAreaView, 
-  KeyboardAvoidingView, 
-  Platform,
-  Dimensions 
+  Dimensions,
+  ScrollView
 } from 'react-native';
 import { useState, useCallback } from 'react';
 import tw from 'twrnc';
@@ -97,11 +96,12 @@ export default function RegisterScreen({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      <KeyboardAvoidingView 
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={tw`flex-1`}
-      >
-        <View style={tw`flex-1 px-6 pt-24`}>
+      <View style={tw`flex-1`}>
+        <ScrollView 
+          style={tw`flex-1`}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={tw`px-6 pt-24 pb-8`}
+        >
           <Animated.View 
             entering={FadeInDown.duration(1000).springify()}
             style={tw`mb-8`}
@@ -116,7 +116,7 @@ export default function RegisterScreen({ navigation }) {
 
           <Animated.View 
             entering={FadeInUp.duration(1000).delay(200)}
-            style={tw`bg-white/80 p-6 rounded-3xl shadow-lg border border-sky-100 backdrop-blur-sm`}
+            style={tw`bg-white/80 p-6 rounded-3xl shadow-lg border border-sky-100 backdrop-blur-sm mb-6`}
           >
             <View style={tw`mb-4`}>
               <Text style={[tw`text-blue-800 mb-2`, { fontFamily: 'Montserrat-Medium' }]}>
@@ -199,7 +199,7 @@ export default function RegisterScreen({ navigation }) {
 
           <Animated.View 
             entering={FadeInUp.duration(1000).delay(400)}
-            style={tw`mt-6 flex-row justify-center items-center`}
+            style={tw`flex-row justify-center items-center mb-6`}
           >
             <Text style={[tw`text-blue-800/60`, { fontFamily: 'Montserrat-Regular' }]}>
               Already have an account?{' '}
@@ -213,8 +213,8 @@ export default function RegisterScreen({ navigation }) {
               </Text>
             </TouchableOpacity>
           </Animated.View>
-        </View>
-      </KeyboardAvoidingView>
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 } 

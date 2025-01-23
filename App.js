@@ -21,6 +21,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './pages/Login';
 import DashboardScreen from './pages/MainApp';
 import RegisterScreen from './pages/Register';
+import NewWorkoutScreen from './pages/NewWorkout';
+import WorkoutHistoryScreen from './pages/WorkoutHistory';
+import { Ionicons } from '@expo/vector-icons';
 // status bar displays mobile time, batter etc
 // text is like p tag from html
 // view is like div from html
@@ -39,10 +42,10 @@ const Stack = createNativeStackNavigator();
 
 function HomeScreen({ navigation }) {
   const [fontsLoaded] = useFonts({
-    'Montserrat-Bold': require('./assets/fonts/Montserrat-Bold.ttf'),
-    'Montserrat-SemiBold': require('./assets/fonts/Montserrat-SemiBold.ttf'),
-    'Montserrat-Medium': require('./assets/fonts/Montserrat-Medium.ttf'),
-    'Montserrat-Regular': require('./assets/fonts/Montserrat-Regular.ttf'),
+    'Montserrat-Bold': require('./assets/fonts/Quicksand-Bold.ttf'),
+    'Montserrat-SemiBold': require('./assets/fonts/Quicksand-SemiBold.ttf'),
+    'Montserrat-Medium': require('./assets/fonts/Quicksand-Medium.ttf'),
+    'Montserrat-Regular': require('./assets/fonts/Quicksand-Regular.ttf'),
   });
 
   const bgCircle1 = useSharedValue({ x: 0, y: 0 });
@@ -120,15 +123,27 @@ function HomeScreen({ navigation }) {
             entering={FadeInDown.duration(1000).springify()} 
             style={tw`py-8 flex-row justify-between items-center`}
           >
-            <View>
-              <Text style={[tw`text-5xl text-blue-800`, { fontFamily: 'Montserrat-SemiBold' }]}>
-                fit<Text style={tw`text-sky-500`}>ME</Text>
-              </Text>
+            <View style={tw`flex-row items-center`}>
+              <View style={tw`bg-white/80 p-3 rounded-2xl border-2 border-blue-800 shadow-sm`}>
+                <Ionicons 
+                  name="fitness-outline" 
+                  size={40} 
+                  color="#1e40af"
+                />
+              </View>
+              <View style={tw`ml-3`}>
+                <Text style={[tw`text-2xl text-blue-800`, { fontFamily: 'Montserrat-SemiBold' }]}>
+                  fit<Text style={tw`text-sky-500`}>ME</Text>
+                </Text>
+                <Text style={[tw`text-sm text-blue-800/60`, { fontFamily: 'Montserrat-Regular' }]}>
+                  Your Fitness Partner
+                </Text>
+              </View>
             </View>
 
             <AnimatedTouchable 
               style={[
-                tw`mr-4 px-6 py-4 border-2 border-sky-500 rounded-full bg-white/80`,
+                tw`px-6 py-4 border-2 border-sky-500 rounded-full bg-white/80`,
                 loginAnimatedStyle
               ]}
               onPressIn={onPressIn}
@@ -214,6 +229,7 @@ function HomeScreen({ navigation }) {
             <AnimatedTouchable 
               entering={FadeInRight.duration(1000).delay(1200)}
               style={tw`bg-blue-800 border-2 border-blue-800 p-4 rounded-xl`}
+              onPress={() => navigation.navigate('WorkoutHistory')}
             >
               <Text style={[tw`text-white text-center text-lg`, { fontFamily: 'Montserrat-SemiBold' }]}>
                 View Workout History
@@ -253,6 +269,8 @@ export default function App() {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Dashboard" component={DashboardScreen} />
+        <Stack.Screen name="NewWorkout" component={NewWorkoutScreen} />
+        <Stack.Screen name="WorkoutHistory" component={WorkoutHistoryScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
