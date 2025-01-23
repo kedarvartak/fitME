@@ -26,9 +26,7 @@ To get started with fitME, follow these steps:
 
 3. **Run the application:**
     ```bash
-    npx react-native start
-    npx react-native run-android # For Android
-    npx react-native run-ios # For iOS
+    npm run start
     ```
 
 ## Usage
