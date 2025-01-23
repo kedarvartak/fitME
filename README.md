@@ -15,7 +15,7 @@ To get started with fitME, follow these steps:
 
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com/yourusername/fitME.git
+    git clone https://github.com/kedarvartak/fitME.git
     cd fitME
     ```
 
