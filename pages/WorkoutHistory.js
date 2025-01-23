@@ -20,7 +20,7 @@ import Animated, {
 
 const { width, height } = Dimensions.get('window');
 
-// Mock data - Replace with real data from your backend/storage
+
 const mockWorkoutHistory = [
   {
     id: '1',
