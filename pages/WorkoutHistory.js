@@ -141,7 +141,7 @@ export default function WorkoutHistoryScreen({ navigation }) {
           onPress={() => navigation.goBack()}
           style={tw`flex-row items-center`}
         >
-          <Text style={tw`text-blue-800 text-2xl`}>←</Text>
+          <Ionicons name="arrow-back" size={28} color="#1e40af" />
           <Text style={[tw`text-blue-800 ml-2 text-base`, { fontFamily: 'Montserrat-Medium' }]}>
             Back
           </Text>

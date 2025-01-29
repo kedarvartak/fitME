@@ -19,11 +19,16 @@ import Animated, {
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './pages/Login';
-import DashboardScreen from './pages/MainApp';
+import MainAppScreen from './pages/MainApp';
 import RegisterScreen from './pages/Register';
 import NewWorkoutScreen from './pages/NewWorkout';
 import WorkoutHistoryScreen from './pages/WorkoutHistory';
+import WorkoutDetailsScreen from './pages/WorkoutDetails';
 import { Ionicons } from '@expo/vector-icons';
+import SplitSetup from './pages/SplitSetup';
+import StartWorkout from './pages/StartWorkout';
+import ActiveWorkout from './pages/ActiveWorkout';
+import WorkoutComplete from './pages/WorkoutComplete';
 // status bar displays mobile time, batter etc
 // text is like p tag from html
 // view is like div from html
@@ -219,7 +224,7 @@ function HomeScreen({ navigation }) {
             <AnimatedTouchable 
               entering={FadeInRight.duration(1000).delay(1000)}
               style={tw`bg-sky-500 border-2 border-sky-500 p-4 rounded-xl mb-4 shadow-md`}
-              onPress={() => navigation.navigate('Dashboard')}
+              onPress={() => navigation.navigate('MainApp')}
             >
               <Text style={[tw`text-white text-center text-lg`, { fontFamily: 'Montserrat-SemiBold' }]}>
                 Start New Workout
@@ -268,9 +273,14 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Dashboard" component={DashboardScreen} />
+        <Stack.Screen name="MainApp" component={MainAppScreen} />
         <Stack.Screen name="NewWorkout" component={NewWorkoutScreen} />
         <Stack.Screen name="WorkoutHistory" component={WorkoutHistoryScreen} />
+        <Stack.Screen name="WorkoutDetails" component={WorkoutDetailsScreen} />
+        <Stack.Screen name="SplitSetup" component={SplitSetup} />
+        <Stack.Screen name="StartWorkout" component={StartWorkout} />
+        <Stack.Screen name="ActiveWorkout" component={ActiveWorkout} />
+        <Stack.Screen name="WorkoutComplete" component={WorkoutComplete} />
       </Stack.Navigator>
     </NavigationContainer>
   );

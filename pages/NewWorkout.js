@@ -1,3 +1,4 @@
+import 'react-native-get-random-values';
 import { 
   Text, 
   View, 
@@ -5,21 +6,22 @@ import {
   TouchableOpacity, 
   ScrollView, 
   TextInput,
-  Dimensions 
 } from 'react-native';
 import { useState, useEffect, useCallback } from 'react';
 import tw from 'twrnc';
 import { Ionicons } from '@expo/vector-icons';
-import { v4 as uuidv4 } from 'uuid';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-//get devices width height
-const { width, height } = Dimensions.get('window');
 
-// for our workout timer
 const formatTime = (seconds) => {
   const mins = Math.floor(seconds / 60);
   const secs = seconds % 60;
   return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+};
+
+
+const generateId = () => {
+  return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 };
 
 export default function NewWorkoutScreen({ navigation }) {
@@ -27,6 +29,65 @@ export default function NewWorkoutScreen({ navigation }) {
   const [newExercise, setNewExercise] = useState('');
   const [timers, setTimers] = useState({});
   const [activeTimer, setActiveTimer] = useState(null);
+  const [workoutStartTime, setWorkoutStartTime] = useState(null);
+
+ 
+  useEffect(() => {
+    setWorkoutStartTime(new Date().toISOString());
+  }, []);
+
+  // async save workout to local storage
+  const saveWorkoutLocally = async (workoutData) => {
+    try {
+      const existingWorkouts = await AsyncStorage.getItem('workouts');
+      const workouts = existingWorkouts ? JSON.parse(existingWorkouts) : [];
+      workouts.push(workoutData);
+      await AsyncStorage.setItem('workouts', JSON.stringify(workouts));
+      return true;
+    } catch (error) {
+      console.error('Error saving workout:', error);
+      return false;
+    }
+  };
+
+  const finishWorkout = async () => {
+    const workoutData = {
+      id: generateId(),
+      startTime: workoutStartTime,
+      endTime: new Date().toISOString(),
+      exercises: exercises.map(ex => ({
+        id: ex.id,
+        name: ex.name,
+        sets: ex.sets,
+        totalTime: timers[ex.id] || 0
+      })),
+      totalExercises: exercises.length,
+      totalSets: exercises.reduce((acc, ex) => acc + ex.sets.length, 0),
+      totalVolume: exercises.reduce((acc, ex) => {
+        return acc + ex.sets.reduce((setAcc, set) => 
+          setAcc + (parseFloat(set.weight) || 0) * set.reps, 0);
+      }, 0)
+    };
+
+    const savedLocally = await saveWorkoutLocally(workoutData);
+    
+    if (savedLocally) {
+      navigation.replace('MainApp');
+    }
+  };
+
+ 
+  const renderFinishButton = () => (
+    <TouchableOpacity
+      onPress={finishWorkout}
+      style={tw`bg-sky-500 p-4 rounded-xl mb-6 mx-4 ${exercises.length === 0 ? 'opacity-50' : ''}`}
+      disabled={exercises.length === 0}
+    >
+      <Text style={[tw`text-white text-center text-lg`, { fontFamily: 'Montserrat-Bold' }]}>
+        Finish Workout
+      </Text>
+    </TouchableOpacity>
+  );
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -45,11 +106,9 @@ export default function NewWorkoutScreen({ navigation }) {
     setActiveTimer(activeTimer === exerciseId ? null : exerciseId);
   }, [activeTimer]);
 
-  // was using timestamp but it was causing issues with the timer so i switched to uuid. timestamp could lead to possible collisions down to milliseconds
-  // uuid is a better solution for this. guaranteed unique id for each exercise, uuids are 128-bit values, which means they have a very low probability of collision, globally unique, suitable for database ids
   const addExercise = () => {
     if (newExercise.trim()) {
-      const newId = uuidv4();
+      const newId = generateId();
       setExercises([...exercises, {
         id: newId,
         name: newExercise.trim(),
@@ -250,6 +309,8 @@ export default function NewWorkoutScreen({ navigation }) {
           ))}
         </View>
       </ScrollView>
+      
+      {renderFinishButton()}
     </SafeAreaView>
   );
 } 
